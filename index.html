@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="老後に貯蓄が一体いくら必要なのか試算してみましょう。(65 歳で退職して、退職後の生活費が毎月25万円の場合、退職までの間毎年必要になる貯蓄額は現在の年収の25.00%で、つまり200万円。)">
+    <meta name="author" content="Jack Sen">
+    <meta name="keywords" content="老後,資金,貯蓄,マネー,プランナー,試算,暮らし,安心,計算,電卓,シミュレーター,シミュレーション,マネーシミュレーター">
+    <meta property="og:image" content="http://tiantianjizhang-tw.swalloworkstudio.com/lifemoney/lifemoneyplanner.png"/>
+    <meta property="og:url" content="http://tiantianjizhang-tw.swalloworkstudio.com/lifemoney/"/>
+    <meta name="google-site-verification" content="XhVBGPpN4mOypnSNGa-rkReK4UN1Ws8Z_-cp27Ppt24" />
+    <!-- Material Design for Bootstrap fonts and icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+
+    <!-- Material Design for Bootstrap CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+        integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
+    <title>老後マネーシミュレーター | 老後に貯蓄が一体いくら必要なのか試算してみましょう</title>
+    <style>
+        body {
+            padding-top: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 0.75rem;
+        }
+
+        #myForm label {
+            font-size: 1em;
+        }
+
+        #myForm input {
+            font-size: 1.1em;
+        }
+
+        footer .row {
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>老後資金シミュレーター</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <form id="myForm">
+                    <div class="form-group">
+                        <label for="annualIncome" class="bmd-label-floating">現在の年収(万円)</label>
+                        <input type="text" pattern="\d*" class="form-control" id="annualIncome" name="annualIncome" value="800" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="currentAge" class="bmd-label-floating">現在の年齢</label>
+                        <input type="number" pattern="\d*" class="form-control" id="currentAge" name="currentAge" value="40" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="retirementAge" class="bmd-label-floating">退職年齢</label>
+                        <input type="number" pattern="\d*" class="form-control" id="retirementAge" value="65" name="retirementAge" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lifeAge" class="bmd-label-floating">想定寿命</label>
+                        <input type="number" pattern="\d*" class="form-control" id="lifeAge" value="85" name="lifeAge" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="currentSavings" class="bmd-label-floating">現在の貯金額(万円)</label>
+                        <input type="number" pattern="\d*" class="form-control" id="currentSavings" name="currentSavings" value="1000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="annualROIBeforeRetirement" class="bmd-label-floating">年間の投資収益率 (%)</label>
+                        <input type="number" class="form-control" id="annualROIBeforeRetirement" name="annualROIBeforeRetirement" value="1" required step="0.01">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="annualExpensesAfterRetirement" class="bmd-label-floating">退職後毎月取り崩し希望額(万円)</label>
+                        <input type="number" pattern="\d*" class="form-control" id="annualExpensesAfterRetirement" name="annualExpensesAfterRetirement" value="30" required>
+                    </div>
+
+                    <div class="float-right">
+                        <button id="submitBtn" type="submit" class="btn btn-primary btn-raised">計算</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8">
+                <div class="jumbotron" id="myDigest">
+
+                </div>
+                <div class="media">
+                    <a href="https://itunes.apple.com/app/id954944283">
+                        <img src="https://s3.amazonaws.com/lharb/yummy/appstore.png" class="align-self-start mr-3">
+                    </a> 
+                    <div class="media-body">
+                        <h5 class="mt-0">毎日家計簿</h5>
+                        <p>続けられる家計簿</p>
+                    </div>
+                </div>
+                <hr>
+                <div>
+                    <canvas id="myCanvas"></canvas>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">年齢</th>
+                            <th scope="col">貯蓄/出費</th>
+                            <th scope="col">利息</th>
+                            <th scope="col">期末残高</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myList">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="fb-like" data-href="http://tiantianjizhang-tw.swalloworkstudio.com/lifemoney/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="line-it-button" data-lang="ja" data-type="share-b" data-ver="3" data-url="http://tiantianjizhang-tw.swalloworkstudio.com/lifemoney/" data-color="default" data-size="small" data-count="true" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <p class="copyright text-muted small">Copyright &copy; Swalloworks Studio All Rights Reserved</p>
+        </div>
+    </footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://www.jsviews.com/download/jsrender.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156457598-1"></script>
+
+    <script>$(document).ready(function () { $('body').bootstrapMaterialDesign(); });</script>
+    <script id="myDigestTmpl" type="text/x-jsrender">
+        <p class="lead">{{:retirementAge}} 歳で退職して、退職後月間取り崩し希望額が ¥{{dec:monthlyExpensesAfterRetirement}} の場合、退職までの間毎年必要になる貯蓄額は現在の年収の {{:requiredSavingsPercentage.toFixed(2)}}% で、つまり</p>
+        <hr class="my-4">
+        <h1>
+            ¥{{dec:requiredSavings}}
+        </h1>
+        <p>(退職時の必要貯蓄額は¥{{dec:requireAllMoneyWhenRetired}})</p>
+    </script>
+    <script id="myListTmpl" type="text/x-jsrender">
+        <tr>
+          <th scope="row">{{>age}}</th>
+          <td>{{dec:delta}}</td>
+          <td>{{dec:interest}}</td>
+          <td>{{dec:endingBalance}}
+          </td>
+        </tr>
+    </script>
+    <script>
+        $.views.converters("dec",
+            function (val) {
+                return numberWithCommas(val.toFixed(0));
+            }
+        );
+
+        window.chartColors = {
+            red: 'rgb(255, 99, 132)',
+            orange: 'rgb(255, 159, 64)',
+            yellow: 'rgb(255, 205, 86)',
+            green: 'rgb(75, 192, 192)',
+            blue: 'rgb(54, 162, 235)',
+            purple: 'rgb(153, 102, 255)',
+            grey: 'rgb(201, 203, 207)'
+        };
+
+        $(function () {
+            $('#myForm').submit();
+        });
+
+        $('#myForm').submit((event) => {
+            // console.log($('#myForm').serialize());
+            var param = {};
+            // // フォームの内容を取得
+            // // serializeArrayの戻り値は[{key: 'キーの名前', value: '値'}]という形式になっている
+            $($('#myForm').serializeArray()).each(function (i, v) {
+                param[v.name] = Number(v.value);
+            });
+            param["annualIncome"] = param["annualIncome"] * 10000;
+            param["currentSavings"] = param["currentSavings"] * 10000;
+            param["annualExpensesAfterRetirement"] = param["annualExpensesAfterRetirement"] * 120000;
+            param["annualROIBeforeRetirement"] = param["annualROIBeforeRetirement"] / 100;
+            param["annualROIAfterRetirement"] = param["annualROIBeforeRetirement"];
+            // console.log(param);
+            // let url = "http://localhost:3000";
+            let url = "https://us-central1-myfirstfirebase-f7c50.cloudfunctions.net/function-1";
+            $.post({
+                url: url,
+                data: JSON.stringify(param),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: (data) => { callback(data); }
+            })
+            event.preventDefault();
+        });
+
+        var callback = function (data) {
+            let arrLabels = [];
+            let serialData1 = [];
+            let serialData2 = [];
+
+            let schedules = data.schedule;
+            schedules.forEach(element => {
+                arrLabels.push(element.age);
+                serialData1.push(element.endingBalance.toFixed(0));
+            });
+
+            // console.log(data);
+
+            var color = Chart.helpers.color;
+            var barChartData = {
+                labels: arrLabels,
+                datasets: [{
+                    label: '貯蓄',
+                    backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+                    borderColor: window.chartColors.red,
+                    borderWidth: 1,
+                    data: serialData1
+                }]
+            };
+            var ctx = document.getElementById('myCanvas').getContext('2d');
+            window.myBar = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: false,
+                        text: ''
+                    }
+                }
+            });
+
+            $("#myDigest").html(
+                $("#myDigestTmpl").render({
+                    "monthlyExpensesAfterRetirement": (data.request.annualExpensesAfterRetirement / 12),
+                    "retirementAge": data.request.retirementAge,
+                    "requiredSavings": data.requiredSavingPerYear,
+                    "requiredSavingsPercentage": (data.requiredSavingPerYear / data.request.annualIncome * 100),
+                    "requireAllMoneyWhenRetired": data.requireAllMoneyWhenRetired
+                })
+            );
+            $("#myList").html(
+                $("#myListTmpl").render(data.schedule)
+            );
+        };
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-156457598-1');
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v5.0&appId=601322130657277&autoLogAppEvents=1"></script>
+    <script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
+</body>
+
+</html>
