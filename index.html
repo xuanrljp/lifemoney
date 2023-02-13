@@ -5,9 +5,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="老後に貯蓄が一体いくら必要なのか試算してみましょう。(65 歳で退職して、退職後の生活費が毎月25万円の場合、退職までの間毎年必要になる貯蓄額は現在の年収の25.00%で、つまり200万円。)">
+    <meta name="description" content="退休存款試算(如果65歲退休，退休後的生活費每月6萬台幣，在退休前每年需要的存款額是現在的年收入的25.00％，也就是25萬台幣。)">
     <meta name="author" content="Jack Sen">
-    <meta name="keywords" content="老後,資金,貯蓄,マネー,プランナー,試算,暮らし,安心,計算,電卓,シミュレーター,シミュレーション,マネーシミュレーター">
+    <meta name="keywords" content="退休存款試算,養老計劃">
     <meta property="og:image" content="http://tiantianjizhang-tw.swalloworkstudio.com/lifemoney/lifemoneyplanner.png"/>
     <meta property="og:url" content="http://tiantianjizhang-tw.swalloworkstudio.com/lifemoney/"/>
     <meta name="google-site-verification" content="XhVBGPpN4mOypnSNGa-rkReK4UN1Ws8Z_-cp27Ppt24" />
@@ -19,7 +19,7 @@
         integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
-    <title>老後マネーシミュレーター | 老後に貯蓄が一体いくら必要なのか試算してみましょう</title>
+    <title>退休試算 | 估算你需要為退休準備多少錢</title>
     <style>
         body {
             padding-top: 12px;
@@ -47,49 +47,49 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h3>老後資金シミュレーター</h3>
+                <h3>退休試算</h3>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
                 <form id="myForm">
                     <div class="form-group">
-                        <label for="annualIncome" class="bmd-label-floating">現在の年収(万円)</label>
-                        <input type="text" pattern="\d*" class="form-control" id="annualIncome" name="annualIncome" value="800" required>
+                        <label for="annualIncome" class="bmd-label-floating">現在年收(萬)</label>
+                        <input type="text" pattern="\d*" class="form-control" id="annualIncome" name="annualIncome" value="100" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="currentAge" class="bmd-label-floating">現在の年齢</label>
+                        <label for="currentAge" class="bmd-label-floating">現在年齡</label>
                         <input type="number" pattern="\d*" class="form-control" id="currentAge" name="currentAge" value="40" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="retirementAge" class="bmd-label-floating">退職年齢</label>
+                        <label for="retirementAge" class="bmd-label-floating">退休年齡</label>
                         <input type="number" pattern="\d*" class="form-control" id="retirementAge" value="65" name="retirementAge" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="lifeAge" class="bmd-label-floating">想定寿命</label>
+                        <label for="lifeAge" class="bmd-label-floating">預期壽命</label>
                         <input type="number" pattern="\d*" class="form-control" id="lifeAge" value="85" name="lifeAge" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="currentSavings" class="bmd-label-floating">現在の貯金額(万円)</label>
-                        <input type="number" pattern="\d*" class="form-control" id="currentSavings" name="currentSavings" value="1000" required>
+                        <label for="currentSavings" class="bmd-label-floating">現在存款(萬)</label>
+                        <input type="number" pattern="\d*" class="form-control" id="currentSavings" name="currentSavings" value="300" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="annualROIBeforeRetirement" class="bmd-label-floating">年間の投資収益率 (%)</label>
+                        <label for="annualROIBeforeRetirement" class="bmd-label-floating">年投資收益 (%)</label>
                         <input type="number" class="form-control" id="annualROIBeforeRetirement" name="annualROIBeforeRetirement" value="1" required step="0.01">
                     </div>
 
                     <div class="form-group">
-                        <label for="annualExpensesAfterRetirement" class="bmd-label-floating">退職後毎月取り崩し希望額(万円)</label>
-                        <input type="number" pattern="\d*" class="form-control" id="annualExpensesAfterRetirement" name="annualExpensesAfterRetirement" value="30" required>
+                        <label for="annualExpensesAfterRetirement" class="bmd-label-floating">退休後每月開支(萬)</label>
+                        <input type="number" pattern="\d*" class="form-control" id="annualExpensesAfterRetirement" name="annualExpensesAfterRetirement" value="6" required>
                     </div>
 
                     <div class="float-right">
-                        <button id="submitBtn" type="submit" class="btn btn-primary btn-raised">計算</button>
+                        <button id="submitBtn" type="submit" class="btn btn-primary btn-raised">試算</button>
                     </div>
                 </form>
             </div>
@@ -101,9 +101,12 @@
                     <a href="https://itunes.apple.com/app/id954944283">
                         <img src="https://s3.amazonaws.com/lharb/yummy/appstore.png" class="align-self-start mr-3">
                     </a> 
+                    <a href="https://play.google.com/store/apps/details?id=com.swalloworkstudio.rakurakukakeibo&utm_source=ttjztwplanner" class="mr-3">
+                        <img alt="Google Play下載" width="180" src="./appstore-android-on.svg">
+                    </a>
                     <div class="media-body">
-                        <h5 class="mt-0">毎日家計簿</h5>
-                        <p>続けられる家計簿</p>
+                        <h5 class="mt-0">天天記帳</h5>
+                        <p>讓記帳成為習慣</p>
                     </div>
                 </div>
                 <hr>
@@ -113,10 +116,10 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">年齢</th>
-                            <th scope="col">貯蓄/出費</th>
+                            <th scope="col">年齡</th>
+                            <th scope="col">儲蓄/花費</th>
                             <th scope="col">利息</th>
-                            <th scope="col">期末残高</th>
+                            <th scope="col">期末餘額</th>
                         </tr>
                     </thead>
                     <tbody id="myList">
@@ -157,12 +160,12 @@
 
     <script>$(document).ready(function () { $('body').bootstrapMaterialDesign(); });</script>
     <script id="myDigestTmpl" type="text/x-jsrender">
-        <p class="lead">{{:retirementAge}} 歳で退職して、退職後月間取り崩し希望額が ¥{{dec:monthlyExpensesAfterRetirement}} の場合、退職までの間毎年必要になる貯蓄額は現在の年収の {{:requiredSavingsPercentage.toFixed(2)}}% で、つまり</p>
+        <p class="lead">{{:retirementAge}} 退休、退休後如果每月開支 ${{dec:monthlyExpensesAfterRetirement}} 、那麼退休前每年所需儲蓄是現在年收的 {{:requiredSavingsPercentage.toFixed(2)}}% 、也就是</p>
         <hr class="my-4">
         <h1>
-            ¥{{dec:requiredSavings}}
+            ${{dec:requiredSavings}}
         </h1>
-        <p>(退職時の必要貯蓄額は¥{{dec:requireAllMoneyWhenRetired}})</p>
+        <p>(退休時應準備金額${{dec:requireAllMoneyWhenRetired}})</p>
     </script>
     <script id="myListTmpl" type="text/x-jsrender">
         <tr>
@@ -237,7 +240,7 @@
             var barChartData = {
                 labels: arrLabels,
                 datasets: [{
-                    label: '貯蓄',
+                    label: '儲蓄',
                     backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
                     borderColor: window.chartColors.red,
                     borderWidth: 1,
